@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text & Object Extractor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        .upload-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .extracted-texts {
+            margin-bottom: 20px;
+        }
+        .extracted-texts >h2 {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 600px; 
+            margin-bottom: 10px
+        }
+        .extracted-texts>p, .extracted-texts>ul {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 600px; 
+        }
+        .image-gallery, .image-gallery>div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .image-gallery img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Text & Object Extractor</h1>
+    <div class="upload-form">
+        <h1 class="text-center">Upload an Image</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose an image</label>
+                <input type="file" class="form-control" id="file" name="file" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Upload</button>
+        </form>
+    </div>
+    {% if text_list %}
+    <div class="extracted-texts">
+        <h2>Extracted Texts:</h2>
+        <ul>
+            {% for text in text_list %}
+            <p>{{ text }}</p>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if images %}
+    <div class="image-gallery">
+        <h2>Extracted Objects:</h2>
+        <br>
+        <div>
+            {% for image in images %}
+            <img src="{{ image }}" alt="Extracted Object">
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
